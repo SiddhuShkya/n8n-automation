@@ -4,7 +4,7 @@ Meet Nathan.  🙋 Nathan works as an Analytics Manager at ABCorp. His job is to
 
 Some things that Nathan does are repetitive and mind-numbing. He wants to automate some of these tasks so that he doesn't burn out. As an Automation Expert, you are meeting with Nathan today to help him understand how he can offload some of his responsibilities to n8n.
 
-```text
+```
 You 👩‍🔧: Nice to meet you, Nathan. Glad to be doing this. What's a repetitive task that's error-prone and that you'd like to get off your plate first?
 ```
 
@@ -140,7 +140,7 @@ Nathan: This is great. You already automated an important part of my job with on
 You: Exactly. In the next step, I'll help you one step further and insert the data you retrieved into an n8n Data Table.
 ```
 
-## 2. Inserting data into a Data Table
+# 2. Inserting data into a Data Table
 
 <img src="../screenshots/inserting-data-to-data-table.png" alt="image" width="100%"/>
 
