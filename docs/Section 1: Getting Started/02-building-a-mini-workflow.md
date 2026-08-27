@@ -22,7 +22,7 @@ This will add the Manual Trigger node to your canvas, which allows you to run th
 > [!NOTE]
 > For faster workflow creation, you can skip this step in the future. Adding any other node without a trigger will add the Manual Trigger node to the workflow. In a real-world scenario, you would probably want to set up a schedule or some other trigger to run the workflow.
 
-<img src="../screenshots/manual-trigger-node.png" alt="image" width="100%"/>
+<img src="../../../../screenshots/manual-trigger-node.png" alt="image" width="100%"/>
 
 # Add the Hacker News node
 
@@ -36,7 +36,7 @@ Then:
 
 n8n adds the node to your canvas and the node window opens to display its configuration details. 
 
-<img src="../screenshots/hacker-news-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/hacker-news-node.png" alt="image" width="100%"/>
 
 # Configure the Hacker News node
 
@@ -58,7 +58,7 @@ We need to configure several parameters for the Hacker News node to make it work
 - `Limit: 10` -- This parameter sets a limit to the number of results the Get Many operation returns.
 - `Additional Fields > Add Field > Keyword: automation` -- Additional fields are options that you can add to certain nodes to make your request more specific or filter the results. For this example, we want to get only articles that include the keyword "automation."
 
-<img src="../screenshots/configure-hacker-news-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/configure-hacker-news-node.png" alt="image" width="100%"/>
 
 ## Settings
 
@@ -73,7 +73,7 @@ In the Hacker News node Settings, edit:
 
 - `Display note in flow?`: toggle to true - This option will display the Note under the node in the canvas.
 
-<img src="../screenshots/node-settings.png" alt="image" width="100%"/>
+<img src="../../screenshots/node-settings.png" alt="image" width="100%"/>
 
 > [!NOTE]
 > It's good practice to name your nodes. You can rename the node with a name that's more descriptive for your use case. There are four ways to do this:
@@ -83,13 +83,13 @@ In the Hacker News node Settings, edit:
 3. Double-click the node, click the name in the top left, rename it, then click Rename.
 4. Right-click on the node and select Rename.
 
-<img src="../screenshots/rename-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/rename-node.png" alt="image" width="100%"/>
 
 # Execute the node
 
 Select the Execute step button in the node details window. You should see 10 results in the Output Table view.
 
-<img src="../screenshots/execute-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/execute-node.png" alt="image" width="100%"/>
 
 ## Node executions
 
@@ -98,14 +98,14 @@ Select the Execute step button in the node details window. You should see 10 res
 
 If a node executes successfully, a small green checkmark appears on top of the node in the canvas.
 
-<img src="../screenshots/node-executions.png" alt="image" width="100%"/>
+<img src="../../screenshots/node-executions.png" alt="image" width="100%"/>
 
 If there are no problems with the parameters and everything works fine, the requested data displays in the node window in Schema, Table, and JSON format. You can switch between these views by selecting the one you want from the Table | JSON | Schema button at the top of the node window.
 
 > [!NOTE]
 > The Table view is the default. It displays the requested data in a table, where the rows are the records and the columns are the available attributes of those records.
 
-<img src="../screenshots/node-output.png" alt="image" width="100%"/>
+<img src="../../screenshots/node-output.png" alt="image" width="100%"/>
 
 The node window displays more information about the node execution:
 
@@ -126,7 +126,7 @@ By default, your workflow is automatically saved as "My workflow" It's best prac
 > [!NOTE]
 > You can rename a workflow by clicking on the workflow's name at the top of the Editor UI.
 
-<img src="../screenshots/rename-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/rename-workflow.png" alt="image" width="100%"/>
 
 Once you've renamed the workflow, be sure to save it.
 

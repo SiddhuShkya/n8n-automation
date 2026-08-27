@@ -58,11 +58,11 @@ You can access the properties of an object using dot notation with the `syntax o
 
 Data sent from one node to another is sent as an array of JSON objects. The elements in this collection are called items.
 
-<img src="../screenshots/n8n-ds.png" alt="image" width="100%"/>
+<img src="../../screenshots/n8n-ds.png" alt="image" width="100%"/>
 
 An n8n node performs its action on each item of incoming data.
 
-<img src="../screenshots/n8n-items.png" alt="image" width="100%"/>
+<img src="../../screenshots/n8n-items.png" alt="image" width="100%"/>
 
 # Creating and referencing data with the Code node
 
@@ -82,11 +82,11 @@ return [
 
 For example, the array of objects representing the Ninja turtles would look like this in the Code node:
 
-<img src="../screenshots/ninja-turtles-object.png" alt="image" width="100%"/>
+<img src="../../screenshots/ninja-turtles-object.png" alt="image" width="100%"/>
 
 Notice that the array of objects contains an extra key: json. n8n expects you to wrap each object in an array in another object, with the key json.
 
-<img src="../screenshots/json-wrapper.png" alt="image" width="100%"/>
+<img src="../../screenshots/json-wrapper.png" alt="image" width="100%"/>
 
 It's good practice to pass the data in the right structure used by n8n. But don't worry if you forget to add the json key to an item, n8n adds it automatically.
 
@@ -126,7 +126,7 @@ return myContacts;
 
 When you execute the Code node, the result should look like this:
 
-<img src="../screenshots/code-node-mycontacts.png" alt="image" width="100%"/>
+<img src="../../screenshots/code-node-mycontacts.png" alt="image" width="100%"/>
 
 ## Referencing node data with the Code node
 
@@ -148,7 +148,7 @@ return items;
 
 When you execute the Code node, the result should look like this:
 
-<img src="../screenshots/second-code-node-workemail.png" alt="image" width="100%"/>
+<img src="../../screenshots/second-code-node-workemail.png" alt="image" width="100%"/>
 
 ## Referencing data from other nodes
 
@@ -181,7 +181,7 @@ Rename your nodes to describe what they do. Double-click the node title in the c
 
 Naming your nodes is self-documenting. You can clearly see what the workflow does when you have proper naming. Get into the habit of naming your workflows, your nodes and using a sticky note to explain what the workflow does. The naming convention should make sense to you and your team. We recommend using CamelCase or pascalCase as the no space makes it much easier to reference the node. 
 
-<img src="../screenshots/naming-node-practice.png" alt="image" width="100%"/>
+<img src="../../screenshots/naming-node-practice.png" alt="image" width="100%"/>
 
 ## Exercise: referencing other nodes
 
@@ -204,8 +204,8 @@ Build a workflow that pulls data from two different upstream nodes into a single
 
 6. Run the workflow and check the Edit Fields output. You should see a summary like "Jay Gatsby is one of 5 customers".
 
-<img src="../screenshots/set-summary-output.png" alt="image" width="100%"/>
+<img src="../../screenshots/set-summary-output.png" alt="image" width="100%"/>
 
 The Edit Fields node is not directly connected to GetCustomers, but it can still read from it using the $() syntax. Notice how the expression reads almost like a sentence because the nodes have descriptive names. If they were still called "Customer Datastore" and "Code", the same expression would work, but it would be harder to tell what data you are pulling and from where.
 
-<img src="../screenshots/referencing-other-nodes.png" alt="image" width="100%"/>
+<img src="../../screenshots/referencing-other-nodes.png" alt="image" width="100%"/>

@@ -21,13 +21,13 @@ When you select a failed execution from the log, n8n opens a read-only view of t
 
 Use the Editor | Executions toggle at the top of the screen to switch between editing your workflow and reviewing past executions. This lets you move quickly between investigating a failure and fixing the problem.
 
-<img src="../screenshots/failed-execution.png" alt="image" width="100%"/>
+<img src="../../screenshots/failed-execution.png" alt="image" width="100%"/>
 
 ## Debugging failed executions
 
 Once you have identified a failed execution, you can copy it into the editor for debugging. Click the Debug in editor button on a failed execution and n8n will load that execution's data into the workflow editor with all the node outputs pinned. This means you can re-run individual nodes or the entire workflow using the exact same data that caused the failure, without needing to trigger a new execution from scratch. Fix the problem, test it against the pinned data, and then unpublish the pinned data when you are satisfied the issue is resolved.
 
-<img src="../screenshots/debug-failed-exec.png" alt="image" width="100%"/>
+<img src="../../screenshots/debug-failed-exec.png" alt="image" width="100%"/>
 
 # Catching and handling errors
 
@@ -57,7 +57,7 @@ Here's the table in Markdown format:
 | **Continue** | The workflow continues to the next node. The failed node outputs empty data. | When the node is optional and downstream nodes can work without its output. |
 | **Continue Using Error Output** | The node gets a second output connector (a red one). If the node succeeds, data flows through the regular output. If it fails, data flows through the error output instead. | When you want to handle the error within the workflow itself, for example by sending a notification or taking a different path. |
 
-<img src="../screenshots/node-settings-error.png" alt="image" width="100%"/>
+<img src="../../screenshots/node-settings-error.png" alt="image" width="100%"/>
 
 ## Retry on fail
 
@@ -105,4 +105,4 @@ Build a workflow that demonstrates both node-level error handling and the Error 
 7. Execute the workflow. Since the HTTP request returns a 500 error, the data should flow through the red error output to the HandleError node. The Success node should receive nothing.
 8. Now enable Retry on Fail in the BadRequest node's Settings tab. Set the retries to 2 and the wait between retries to 1000 ms. Execute again and notice that the node retries twice before sending data to the error output.
 
-<img src="../screenshots/error-handling.png" alt="image" width="100%"/>
+<img src="../../screenshots/error-handling.png" alt="image" width="100%"/>

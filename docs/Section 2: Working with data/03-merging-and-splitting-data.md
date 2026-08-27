@@ -22,13 +22,13 @@ Build a workflow that fetches data from an API that returns a nested array, then
 3. Set the URL to https://pokeapi.co/api/v2/pokemon?limit=5 and execute the node.
 4. Inspect the output. The API returns a single item with a results field containing an array of 5 Pokemon. Notice that even though there are 5 Pokemon in the data, n8n shows this as 1 item because the array is nested inside a single object.
 
-<img src="../screenshots/get-pokemon.png" alt="image" width="100%"/>
+<img src="../../screenshots/get-pokemon.png" alt="image" width="100%"/>
 
 5. Add a Split Out node connected to GetPokemon. Name it SplitPokemon.
 6. Set the Field To Split Out to results.
 7. Execute the node. You should now see 5 separate items, one for each Pokemon, each with a name and url field.
 
-<img src="../screenshots/split-pokemon.png" alt="image" width="100%"/>
+<img src="../../screenshots/split-pokemon.png" alt="image" width="100%"/>
 
 > [!NOTE]
 > Without the Split Out node, downstream nodes would only run once because there was one input item. Splitting the nested array into individual items is what allows downstream nodes to process each record separately. This is a pattern you will use frequently when working with APIs.
@@ -103,13 +103,13 @@ return [
 
 5. Add a Merge node. Connect the GetCustomerData node to Input 1 and the Characters node to Input 2.
 
-<img src="../screenshots/merge-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/merge-workflow.png" alt="image" width="100%"/>
 
 6. Set the mode to `Append` and execute the node. All items from both inputs should appear in a single combined list, with the GetCustomerData items first followed by the Characters items.
 7. Now change the mode to `Combine` and the sub-option to `Merge by Fields`. Set Input 1 Field to name and Input 2 Field to name.
 8. Execute the node. Only items where the name matches in both inputs should appear in the output. Check which names are returned. These are the customers that also exist in the Characters data set.
 
-<img src="../screenshots/merge.png" alt="image" width="100%"/>
+<img src="../../screenshots/merge.png" alt="image" width="100%"/>
 
 # Looping and batch processing
 
@@ -125,7 +125,7 @@ Sometimes you don't want a node to process all received items. For example, you 
 
 n8n handles iteration automatically for most nodes. However, there are certain scenarios where you need to create a loop yourself. To create a loop, connect the output of one node to the input of a previous node, and add an If node to check when to stop the loop.
 
-<img src="../screenshots/creating-loops.png" alt="image" width="100%"/>
+<img src="../../screenshots/creating-loops.png" alt="image" width="100%"/>
 
 ## Node exceptions
 
@@ -175,4 +175,4 @@ return [
 
 This exercise uses the RSS Read node, which is one of the nodes that executes once per URL rather than iterating automatically. That is why the Loop Over Items node is needed here: without it, only the first feed URL would be read.
 
-<img src="../screenshots/batch-processing-rss-feed.png" alt="image" width="100%"/>
+<img src="../../screenshots/batch-processing-rss-feed.png" alt="image" width="100%"/>

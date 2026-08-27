@@ -60,7 +60,7 @@ Before building the workflow, create a Data Table from the provided CSV file:
 5. Name the table customers.
 6. Verify the table has 10 rows with columns for customerID, customerCountry, customerEmail, customerSince, region, and subregion. The region and subregion columns should be empty.
 
-<img src="../screenshots/customers-data-table.png" alt="image" width="100%"/>
+<img src="../../screenshots/customers-data-table.png" alt="image" width="100%"/>
 
 ## Build the workflow
 
@@ -89,7 +89,7 @@ This workflow reads the customer data, fetches country information from the n8n 
     - subregion with the expression `{{ $json.subregion }}`
 10. Execute the workflow. Open the customers Data Table and verify that all 10 rows now have their region and subregion populated.
 
-<img src="../screenshots/merging-data.png" alt="image" width="100%"/>
+<img src="../../screenshots/merging-data.png" alt="image" width="100%"/>
 
 # Generating reports: Retrieving order data
 
@@ -133,7 +133,7 @@ If you have not, follow these steps:
 14. Set Input 1 Field to customerID and Input 2 Field to customerID.
 15. Execute the node. You should see 30 merged items, each order now enriched with its customer's country, region, subregion, and email.
 
-<img src="../screenshots/generating-reports.png" alt="image" width="100%"/>
+<img src="../../screenshots/generating-reports.png" alt="image" width="100%"/>
 
 ## Part 2: Uploading the European report
  
@@ -164,7 +164,7 @@ Continue from the Merge node in Part 1.
     - Set Input Data Field Name to data
 18. Execute the node. If successful, the response should contain a confirmation code. 
 
-<img src="../screenshots/generating-reports-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/generating-reports-workflow.png" alt="image" width="100%"/>
 
 In Part 3, you will connect a new branch from the SortByTotal node to generate the regional summary. Do not delete or disconnect anything from this workflow.
 
@@ -221,7 +221,7 @@ Your messages must be formated exactly like this with your assessment id in squa
 
 ### Your final workflow. 
 
-<img src="../screenshots/final-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/final-workflow.png" alt="image" width="100%"/>
 
 # Monitoring workflow errors
 
@@ -291,13 +291,13 @@ Production workflows run on schedules or in response to triggers, often without 
 
 9. Save and publish the workflow.
 
-<img src="../screenshots/monitor-error-reports.png" alt="image" width="100%"/>
+<img src="../../screenshots/monitor-error-reports.png" alt="image" width="100%"/>
 
 10. Now go back to your Generating Reports workflow. Open Workflow Settings.
 11. In the Error Workflow setting, select Monitor Report Errors.
 12. Save the Generating Reports workflow.
 
-<img src="../screenshots/workflow-settings-for-error.png" alt="image" width="100%"/>
+<img src="../../screenshots/workflow-settings-for-error.png" alt="image" width="100%"/>
 
 ## What the Error Trigger provides
 

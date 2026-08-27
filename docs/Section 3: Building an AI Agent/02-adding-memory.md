@@ -14,7 +14,7 @@ Open the Customer service agent workflow you built in the previous unit.
 2. Type: Hi, my name is Nathan and press Enter. Wait for the response.
 3. Now type: What's my name? and press Enter.
 
-<img src="../screenshots/agent-with-no-memory.png" alt="image" width="100%"/>
+<img src="../../screenshots/agent-with-no-memory.png" alt="image" width="100%"/>
 
 ## Add Simple Memory
 
@@ -25,7 +25,7 @@ n8n solves this with memory nodes. The simplest option is Simple Memory, which s
 3. The default settings are fine. Simple Memory stores the last 5 interactions by default, which is enough for most conversations. You can increase this later if you need the agent to remember more context.
 4. Close the node to return to the canvas.
 
-<img src="../screenshots/simple-memory.png" alt="image" width="100%"/>
+<img src="../../screenshots/simple-memory.png" alt="image" width="100%"/>
 
 ## Test it again
 
@@ -35,7 +35,7 @@ Now repeat the same test with memory attached.
 2. Type: Hi, my name is Nick and press Enter. Wait for the response.
 3. Type: What's my name? and press Enter.
 
-<img src="../screenshots/chat-with-simple-memory.png" alt="image" width="100%"/>
+<img src="../../screenshots/chat-with-simple-memory.png" alt="image" width="100%"/>
 
 ## How memory works
 

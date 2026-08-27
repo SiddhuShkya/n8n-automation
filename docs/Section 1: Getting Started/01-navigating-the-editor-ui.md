@@ -12,7 +12,7 @@ Once you have n8n running, open the Editor UI in a browser window. Log in to you
 
 It should look like this: 
 
-<img src="../screenshots/navigating-the-ui.png" alt="image" width="100%"/>
+<img src="../../screenshots/navigating-the-ui.png" alt="image" width="100%"/>
 
 # Editor UI settings
 

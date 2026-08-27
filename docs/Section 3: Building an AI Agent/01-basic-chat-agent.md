@@ -43,7 +43,7 @@ The Chat Trigger node is what lets you talk to your agent. It opens a chat windo
 4. Close the node details view (select Back to canvas) to return to the canvas.
 
 
-<img src="../screenshots/chat-trigger-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/chat-trigger-node.png" alt="image" width="100%"/>
 
 ## Add an AI Agent node
 
@@ -53,7 +53,7 @@ The AI Agent node is where the thinking happens. It receives the chat message, s
 2. Start typing "AI" and choose the AI Agent node.
 3. The AI Agent editing view will open. Since you are using the Chat Trigger, the default settings for source and prompt are already correct. You do not need to change anything here yet.
 
-<img src="../screenshots/ai-agent-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/ai-agent-node.png" alt="image" width="100%"/>
 
 Notice the connectors along the bottom of the AI Agent node: Chat Model, Memory, and Tool. These are where you attach the pieces that give the agent its capabilities. Right now they are all empty, so the agent cannot do anything yet.
 
@@ -65,7 +65,7 @@ The AI Agent needs a language model to generate responses. For this tutorial, we
 2. Use the search bar to filter for "Google" and select Google Gemini Chat Model.
 3. This attaches the model to the AI Agent and opens the node editor. The default model is fine for this exercise.
 
-<img src="../screenshots/google-gemini-chat-model.png" alt="image" width="100%"/>
+<img src="../../screenshots/google-gemini-chat-model.png" alt="image" width="100%"/>
 
 ## Add credentials
 
@@ -76,7 +76,7 @@ n8n needs an API key to communicate with the chat model.
 3. Paste your Google Gemini API key into the API key field. If you do not have one, you can get it from [Google AI Studio](https://aistudio.google.com/app/apikey).
 4. Close the credential dialog.
 
-<img src="../screenshots/chat-model-credential-setup.png" alt="image" width="100%"/>
+<img src="../../screenshots/chat-model-credential-setup.png" alt="image" width="100%"/>
 
 > [!NOTE]
 > If you are using a different chat model provider, the credential setup will look slightly different, but the process is the same: create a new credential and paste in your API key.
@@ -89,7 +89,7 @@ The agent is now connected to the Chat Trigger and has a language model attached
 2. Type 'Hello' and press Enter. You will see the response from the chat model appear below your message.
 3. The log window on the right shows the inputs and outputs from the AI Agent. Take a look at the logs: you will see the system message that the agent is using to prime the conversation.
 
-<img src="../screenshots/testing-the-agent.png" alt="image" width="100%"/>
+<img src="../../screenshots/testing-the-agent.png" alt="image" width="100%"/>
 
 ## Change the system prompt
 
@@ -103,11 +103,11 @@ The logs from the previous step show the default system message: "You are a help
 You are a customer service agent for a small company. Be polite, concise, and helpful. If you do not know the answer, say so honestly rather than making something up.
 ```
 
-<img src="../screenshots/system-message.png" alt="image" width="100%"/>
+<img src="../../screenshots/system-message.png" alt="image" width="100%"/>
 
 3. Close the node and return to the chat window. Send the same 'Hello' message and see how the tone of the response has changed.
 
-<img src="../screenshots/agent-output-with-system-prompt.png" alt="image" width="100%"/>
+<img src="../../screenshots/agent-output-with-system-prompt.png" alt="image" width="100%"/>
 
 The system prompt is how you shape the agent's personality and behavior. A good system prompt is specific about what the agent should do and how it should respond. You will refine this further when you add tools in a later unit.
 

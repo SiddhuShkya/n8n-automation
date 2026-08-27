@@ -4,7 +4,7 @@ In this unit, you will learn how to export and import workflows.
 
 You can save n8n workflows locally as JSON files. This is useful if you want to share your workflow with someone else or import a workflow from someone else.
 
-<img src="../screenshots/import-export-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/import-export-workflow.png" alt="image" width="100%"/>
 
 You can export and import workflows in three ways:
 

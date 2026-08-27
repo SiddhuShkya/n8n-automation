@@ -26,7 +26,7 @@ Let's get the title of the latest n8n blog post:
     - `Request Method:` GET
     - `URL:` https://blog.n8n.io/
 
-<img src="../screenshots/http-req-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/http-req-node.png" alt="image" width="100%"/>
 
 4. Connect an HTML node to the HTTP Request node and configure the former's parameters:
 
@@ -43,7 +43,7 @@ The Return Array option will return all instances on the page for the defined se
 
 You can add more values to extract more data. You need to know the css selector to extract that data. The result should look like this:
 
-<img src="../screenshots/html-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/html-node.png" alt="image" width="100%"/>
 
 ## XML exercise
 
@@ -67,7 +67,7 @@ To get the pokemon from the PokeAPI, execute the HTTP Request node with the foll
 
 The result should look like this:
 
-<img src="../screenshots/xml-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/xml-node.png" alt="image" width="100%"/>
 
 To transform data the other way around, select the mode XML to JSON.
 
@@ -133,7 +133,7 @@ Build a workflow that rounds customer creation dates, filters them by year, and 
 
 This exercise demonstrates two ways to manipulate dates in n8n. The Date & Time node (RoundDate, Add5days) provides a visual, no-code approach. Luxon expressions in the Edit Fields node (Add20Years) offer more flexibility when you need date operations that go beyond what the Date & Time node provides out of the box.
 
-<img src="../screenshots/working-with-dates.png" alt="image" width="100%"/>
+<img src="../../screenshots/working-with-dates.png" alt="image" width="100%"/>
 
 # Binary data
 
@@ -163,7 +163,7 @@ Build a workflow that fetches a random dog image from an API, downloads it, and 
 8. Set the operation to Rotate and the rotation angle to 180 degrees.
 9. Execute the workflow. The Edit Image node should display the same dog image, now rotated upside down.
 
-<img src="../screenshots/rotate-dog-image.png" alt="image" width="100%"/>
+<img src="../../screenshots/rotate-dog-image.png" alt="image" width="100%"/>
 
 ## Exercise 2: Converting JSON to a CSV file
 
@@ -175,9 +175,9 @@ Build a workflow that fetches data from an API and converts it into a downloadab
 4. Set the operation to Convert to CSV.
 5. Execute the node. The output should show a binary file in the Binary tab. Click the binary data to preview or download the CSV file containing the country data.
 
-<img src="../screenshots/csv-downloadable-output.png" alt="image" width="100%"/>
+<img src="../../screenshots/csv-downloadable-output.png" alt="image" width="100%"/>
 
-<img src="../screenshots/convert-to-csv.png" alt="image" width="100%"/>
+<img src="../../screenshots/convert-to-csv.png" alt="image" width="100%"/>
 
 
 

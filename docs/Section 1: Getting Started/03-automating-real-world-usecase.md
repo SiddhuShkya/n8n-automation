@@ -48,7 +48,7 @@ Before that, the data has to be wrangled with general functions (conditional fil
 
 n8n provides integrations for all these steps, so Nathan's workflow in n8n would look like this eight-node workflow.
 
-<img src="../screenshots/8-node-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/8-node-workflow.png" alt="image" width="100%"/>
 
 You will build this workflow in eight steps:
 
@@ -63,7 +63,7 @@ You will build this workflow in eight steps:
 
 # 1. Getting data from the data warehouse
 
-<img src="../screenshots/get-date-from-wh.png" alt="image" width="100%"/>
+<img src="../../screenshots/get-date-from-wh.png" alt="image" width="100%"/>
 
 In this unit, you will learn how to get data by making HTTP requests with the HTTP Request node.
 
@@ -108,19 +108,19 @@ In the Parameters of the HTTP Request node, make the following adjustments:
     - In the Credentials window, set `Value` to `j[vKYdY68H(:WFb`
     - Select the Save button in the Credentials window to save your credentials.
 
-<img src="../screenshots/header-auth-acc.png" alt="image" width="100%"/>
+<img src="../../screenshots/header-auth-acc.png" alt="image" width="100%"/>
 
 New credential names follow the " account" format by default. You can rename the credentials by clicking on the name, similarly to renaming nodes. It's good practice to give them names that identify the app/service, type, and purpose of the credential. A naming convention makes it easier to keep track of and identify your credentials. Rename the credential by clicking on the name in the top right to n8n Quickstart Header Auth account
 
 Once you save, exit out of the Credentials window to return to the HTTP Request node.
 
-<img src="../screenshots/get-data-from-wh-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/get-data-from-wh-node.png" alt="image" width="100%"/>
 
 ## 1.4 Get the data
 
 Select the Execute step button in the HTTP Request node window. The table view of the HTTP request results should look like this:
 
-<img src="../screenshots/warehouse-data.png" alt="image" width="100%"/>
+<img src="../../screenshots/warehouse-data.png" alt="image" width="100%"/>
 
 This is the data from ABCorp's data warehouse that Nathan needs to work with. This data set includes sales information from 30 customers with five columns:
 
@@ -142,7 +142,7 @@ You: Exactly. In the next step, I'll help you one step further and insert the da
 
 # 2. Inserting data into a Data Table
 
-<img src="../screenshots/inserting-data-to-data-table.png" alt="image" width="100%"/>
+<img src="../../screenshots/inserting-data-to-data-table.png" alt="image" width="100%"/>
 
 In this unit, you will learn how to insert the data received from the HTTP Request node into an n8n Data Table using the Data Table node. 
 
@@ -155,12 +155,12 @@ Before we can insert data, we need to create a Data Table to store it. Since Dat
 - In the left-side panel of the Editor UI, select your personal workspace. 
 - Then click on Data Tables 
 
-<img src="../screenshots/personal-data-table.png" alt="image" width="100%"/>
+<img src="../../screenshots/personal-data-table.png" alt="image" width="100%"/>
 
 - Click the button in the top right corner Create data table.
 - In the popup name the table orders. Then select From scratch
 
-<img src="../screenshots/create-new-data-table.png" alt="image" width="100%"/>
+<img src="../../screenshots/create-new-data-table.png" alt="image" width="100%"/>
 
 - In the table view that appears, add the following columns by clicking on the Add Column button in the top right, with their corresponding types:
 
@@ -172,7 +172,7 @@ Before we can insert data, we need to create a Data Table to store it. Since Dat
     | orderPrice | Number |
     | orderStatus | String |
 
-<img src="../screenshots/data-table-columns.png" alt="image" width="100%"/>
+<img src="../../screenshots/data-table-columns.png" alt="image" width="100%"/>
 
 Unlike external services such as Airtable or Google Sheets, Data Tables don't require you to create an account, generate API tokens, or configure credentials. Everything stays inside n8n, making setup faster and keeping your data secure. 
 
@@ -201,7 +201,7 @@ In the Data Table node window, configure the following parameters:
     - Value: swich to expression {{ $json.orderID }}
 - Mapping Column Mode:  Select Map Automatically
 
-<img src="../screenshots/upsert-order-config.png" alt="image" width="100%"/>
+<img src="../../screenshots/upsert-order-config.png" alt="image" width="100%"/>
 
 The Data Table node will automatically map incoming data fields to matching column names in your table. This means the field names from the HTTP Request node output (like orderID, customerID, etc.) need to match the column names you set up in the Data Table.
 
@@ -218,7 +218,7 @@ Once you've finished configuring the Data Table node, execute it by selecting Ex
 
 All 30 data records will now appear in the orders Data Table. You can verify this by navigating to the Data Tables tab in the left-side panel and opening the orders table. You will notice that there is also three other columns. These are built into data tables. They are id, createdAt and updatedAt. 
 
-<img src="../screenshots/upsert-table-executed.png" alt="image" width="100%"/>
+<img src="../../screenshots/upsert-table-executed.png" alt="image" width="100%"/>
 
 ### What's next?
 
@@ -232,7 +232,7 @@ You: Sure, no problem. As a next step, I'll use a new node to filter the orders 
 
 # 3. Filtering orders
 
-<img src="../screenshots/filtering-orders.png" alt="image" width="100%"/>
+<img src="../../screenshots/filtering-orders.png" alt="image" width="100%"/>
 
 In this unit, you will learn how to filter data using conditional logic and how to use expressions in nodes using the If node.
 
@@ -272,13 +272,13 @@ In the If node window, configure the parameters:
 - Operation: Select String > is equal to
 - Set the value2 placeholder to processing.
 
-<img src="../screenshots/if-node-config.png" alt="image" width="100%"/>
+<img src="../../screenshots/if-node-config.png" alt="image" width="100%"/>
 
 Make sure to select the correct data type (boolean, date & time, number, or string) when you select the Operation. In this case, it is String. 
 
 Select Execute step to test the If node.
 
-<img src="../screenshots/if-node-executed.png" alt="image" width="100%"/>
+<img src="../../screenshots/if-node-executed.png" alt="image" width="100%"/>
 
 The orders with a processing order status should show for the True Branch output, while the orders with a booked order status should show in the False Branch output.
 
@@ -318,7 +318,7 @@ You: Sure, I'll do that in the next unit.
 
 # 4. Setting values for processing orders
 
-<img src="../screenshots/set-values-processed-orders.png" alt="image" width="100%"/>
+<img src="../../screenshots/set-values-processed-orders.png" alt="image" width="100%"/>
 
 In this unit, you will learn how to select and set data before transferring it to a Data Table using the Edit Fields (Set) node.
 
@@ -347,7 +347,7 @@ With the Edit Fields node window open, configure these parameters:
 
 Select Execute step. You should see the following results:
 
-<img src="../screenshots/set-processing-data-executed.png" alt="image" width="100%"/>
+<img src="../../screenshots/set-processing-data-executed.png" alt="image" width="100%"/>
 
 ## 4.3 Add data to the Data Table
 
@@ -369,7 +369,7 @@ Next, insert these filtered values into a new Data Table:
 - Update the Data Table node configuration to point to the new processingOrders table instead of the orders table.
 - Test your Data Table node to be sure it inserts records into the new processingOrders table. You can verify by checking the table in the Data Tables tab.
 
-<img src="../screenshots/data-table-processing-orders.png" alt="image" width="100%"/>
+<img src="../../screenshots/data-table-processing-orders.png" alt="image" width="100%"/>
 
 ### What's next?
 
@@ -383,7 +383,7 @@ You: Yes! In the next unit, I'll use some JavaScript code in a node to calculate
 
 # 5. Calculating booked orders
 
-<img src="../screenshots/calc-booked-orders.png" alt="image" width="100%"/>
+<img src="../../screenshots/calc-booked-orders.png" alt="image" width="100%"/>
 
 In this unit, you will learn how n8n structures data and how to add custom JavaScript code to perform calculations using the Code node. 
 
@@ -465,7 +465,7 @@ return [{ json: {totalBooked, bookedSum} }]
 
 Now select Execute step and you should see the following results:
 
-<img src="../screenshots/code-node-execution.png" alt="image" width="100%"/>
+<img src="../../screenshots/code-node-execution.png" alt="image" width="100%"/>
 
 ### What's next?
 
@@ -487,7 +487,7 @@ You: There's an n8n node for that. I'll set it up in the next unit.
 
 # 6. Notifying the team
 
-<img src="../screenshots/notifying-the-team.png" alt="image" width="100%"/>
+<img src="../../screenshots/notifying-the-team.png" alt="image" width="100%"/>
 
 In this unit, you will learn how to send messages to a Discord channel using the Discord node.
 
@@ -495,7 +495,7 @@ Now that you have a calculated summary of the booked orders, you need to notify 
 
 Before you begin the steps below, use this [link](https://discord.gg/G98WXzsjky) to connect to the n8n server on Discord. Be sure you can access the #n8n-quickstart channel.
 
-<img src="../screenshots/n8n-quickstart-channel.png" alt="image" width="100%"/>
+<img src="../../screenshots/n8n-quickstart-channel.png" alt="image" width="100%"/>
 
 ## 6.1 Add the Discord node
 
@@ -513,7 +513,7 @@ In the Discord node window, configure these parameters:
 - Rename the credential n8n Quickstart S1 Discord Webhook account by clicking on the name in the top left. 
 - Click Save and then close the credentials dialog.
 
-<img src="../screenshots/discord-webhook-account-creds.png" alt="image" width="100%"/>
+<img src="../../screenshots/discord-webhook-account-creds.png" alt="image" width="100%"/>
 
 - Operation: Select Send a Message.
 - Message:
@@ -528,11 +528,11 @@ This week we've {{$json.totalBooked}} booked orders with a total value of {{$jso
 
 Now select Execute step in the Discord node. If all works well, you should see the output in n8n.
 
-<img src="../screenshots/discord-node-executed.png" alt="image" width="100%"/>
+<img src="../../screenshots/discord-node-executed.png" alt="image" width="100%"/>
 
 Your message should also appear in the #n8n-quickstart channel on the n8n Discord. 
 
-<img src="../screenshots/n8n-discord-msg.png" alt="image" width="100%"/>
+<img src="../../screenshots/n8n-discord-msg.png" alt="image" width="100%"/>
 
 ### What's next?
 
@@ -546,7 +546,7 @@ You: Don't worry about that, you can actually schedule the workflow to run on a 
 
 # 7. Scheduling the workflow
 
-<img src="../screenshots/scheduling-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/scheduling-workflow.png" alt="image" width="100%"/>
 
 In this unit, you will learn how to schedule your workflow so that it runs automatically at a set time or interval using the Schedule Trigger node.
 
@@ -567,7 +567,7 @@ In the Schedule Trigger node window, configure these parameters:
 - Trigger at Hour: Select 9am.
 - Trigger at Minute: Enter 0.
 
-<img src="../screenshots/schedule-trigger-node.png" alt="image" width="100%"/>
+<img src="../../screenshots/schedule-trigger-node.png" alt="image" width="100%"/>
 
 
 > [!NOTE]
@@ -579,7 +579,7 @@ Before connecting the node, let's give it a descriptive name. Double-click the n
 
 Now connect the Schedule Trigger node to the GetOrdersFromWarehouse HTTP Request node by dragging the arrow from it to the HTTP Request node. Your workflow now has two triggers -- the Manual Trigger for on-demand testing, and TriggerMondays9am for the automated Monday schedule.
 
-<img src="../screenshots/nathans-complete-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/nathans-complete-workflow.png" alt="image" width="100%"/>
 
 ### What's next?
 
@@ -603,7 +603,7 @@ Publishing a workflow means that it will run automatically every time a trigger 
 
 To publish your workflow, select Publish in the top navigation of the Editor UI. Nathan's workflow will now be executed automatically every Monday at 9 AM.
 
-<img src="../screenshots/nathans-complete-workflow.png" alt="image" width="100%"/>
+<img src="../../screenshots/nathans-complete-workflow.png" alt="image" width="100%"/>
 
 ## 8.1 Workflow executions
 
@@ -613,7 +613,7 @@ To view the executions for a specific workflow, you can switch to the Executions
 
 To see the execution log for the entire n8n instance, in your Editor UI, select Overview and then select the Executions tab in the main panel.
 
-<img src="../screenshots/workflow-execution.png" alt="image" width="100%"/>
+<img src="../../screenshots/workflow-execution.png" alt="image" width="100%"/>
 
 The Executions window displays a table with the following information:
 
@@ -630,7 +630,7 @@ You can customize your workflows and executions, or overwrite some global defaul
 
 Access these settings by selecting the three dots in the upper right corner of the Editor UI when the workflow is open on the canvas, then select Settings.
 
-<img src="../screenshots/workflow-settings.png" alt="image" width="100%"/>
+<img src="../../screenshots/workflow-settings.png" alt="image" width="100%"/>
 
 In the Workflow Settings window you can configure the following settings:
 

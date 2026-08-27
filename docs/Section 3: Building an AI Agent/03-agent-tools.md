@@ -18,7 +18,7 @@ The first tool gives the agent access to customer records: names, countries, ema
 6. Rename the node to GetCustomers.
 7. Close the node to return to the canvas.
 
-<img src="../screenshots/data-table-tool.png" alt="image" width="100%"/>
+<img src="../../screenshots/data-table-tool.png" alt="image" width="100%"/>
 
 ## Add the order data HTTP Request tool
 
@@ -41,7 +41,7 @@ The second tool lets the agent fetch order information: order prices, quantities
 7. Rename the node to GetOrderData.
 8. Close the node to return to the canvas.
 
-<img src="../screenshots/http-request-tool.png" alt="image" width="100%"/>
+<img src="../../screenshots/http-request-tool.png" alt="image" width="100%"/>
 
 ## Update the system prompt
 
@@ -72,7 +72,7 @@ Try these:
 - Who is the employee assigned to order 5?
 - What is the total order value for all electronics orders?
 
-<img src="../screenshots/agent-with-tools.png" alt="image" width="100%"/>
+<img src="../../screenshots/agent-with-tools.png" alt="image" width="100%"/>
 
 Watch the log panel on the right side of the chat window. You will see the agent deciding which tool to call, making the request, and then using the returned data to form its answer. This is the difference between an LLM (which can only generate text) and an agent (which can take actions and use real data).
 
@@ -82,7 +82,7 @@ Try asking something that requires both tools, like:
 What orders belong to customers in Europe?
 ```
 
-<img src="../screenshots/agent-using-all-tools.png" alt="image" width="100%"/>
+<img src="../../screenshots/agent-using-all-tools.png" alt="image" width="100%"/>
 
 The agent will need to check the customer table for European customers and then cross-reference with the order data. It may take a couple of steps, and you can watch the reasoning in the logs.
 
