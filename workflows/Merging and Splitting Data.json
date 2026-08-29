@@ -1,0 +1,243 @@
+{
+  "name": "Merging and Splitting Data",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "38549a0a-1e49-4dc2-ba57-7afe79327635",
+      "name": "ManualTrigger"
+    },
+    {
+      "parameters": {
+        "url": "https://pokeapi.co/api/v2/pokemon?limit=5",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        240,
+        -192
+      ],
+      "id": "78fda2d5-2c96-42ac-9d8f-f92693a95a34",
+      "name": "GetPokemon"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -192
+      ],
+      "id": "7ff272a4-0cc6-4cce-93a8-086bdc7a2120",
+      "name": "SplitPokemon"
+    },
+    {
+      "parameters": {
+        "operation": "getAllPeople",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.n8nTrainingCustomerDatastore",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "d0413129-8ba5-4830-80c1-1ecfa17bdfd3",
+      "name": "GetCustomerData"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      name: 'Jay Gatsby',\n      country: {\n        name: 'US'\n      }\n    }\n  },\n  {\n    json: {\n      name: 'José Arcadio Buendía',\n      country: {\n        name: 'CO'\n      }\n    }\n  },\n  {\n    json: {\n      name: 'Max Mustermann',\n      country: {\n        name: 'DE'\n      }\n    }\n  },\n  {\n    json: {\n      name: 'John Smith',\n      country: {\n        name: 'UK'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        176
+      ],
+      "id": "1a0a9657-e2f5-4e6b-8b7d-506650a6e88f",
+      "name": "Characters"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "name",
+              "field2": "name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        480,
+        80
+      ],
+      "id": "8987bfe7-6cd4-4ac9-b64b-4922f36c83a7",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      url: 'https://medium.com/feed/n8n-io'\n    }\n  },\n  {\n    json: {\n      url: 'https://dev.to/feed/n8n'\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        352
+      ],
+      "id": "ff9e3e80-ecb8-4553-9cbd-cf8acf70ec01",
+      "name": "FeedURLs"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        464,
+        352
+      ],
+      "id": "19d76997-e344-4b14-89b5-c9c2de2aedc7",
+      "name": "BatchFeeds"
+    },
+    {
+      "parameters": {
+        "url": "= {{ $json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        704,
+        368
+      ],
+      "id": "ab1baf98-d05e-4983-8684-3c2728c1c110",
+      "name": "ReadFeed"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "ManualTrigger": {
+      "main": [
+        [
+          {
+            "node": "GetPokemon",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GetCustomerData",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Characters",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FeedURLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetPokemon": {
+      "main": [
+        [
+          {
+            "node": "SplitPokemon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Characters": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "GetCustomerData": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FeedURLs": {
+      "main": [
+        [
+          {
+            "node": "BatchFeeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BatchFeeds": {
+      "main": [
+        [],
+        [
+          {
+            "node": "ReadFeed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ReadFeed": {
+      "main": [
+        [
+          {
+            "node": "BatchFeeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "b32b6faf-ab5b-4a70-a32c-ae27f8c63f85",
+  "meta": {
+    "instanceId": "b3a5d36e46d106cefc0abb79516db39479412e1aa797c78385ab1f74dffcbe3e"
+  },
+  "nodeGroups": [],
+  "id": "dEiEaLB64bod3zx4",
+  "tags": []
+}
