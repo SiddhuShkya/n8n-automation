@@ -1,0 +1,376 @@
+{
+  "name": "Job Hunt Automation V2",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://raw.githubusercontent.com/SiddhuShkya/autoCV/build/SIDDHARTHA_SHAKYA_CV.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        288,
+        -208
+      ],
+      "id": "9e517f5a-b0fe-462f-a823-3a8b848bcdb7",
+      "name": "GetMyCV",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.1-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -720,
+        208
+      ],
+      "id": "bafbba0b-f6cd-4be4-aa2a-0c02ef4df12b",
+      "name": "GeminiChatModel",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sVrbILVHr9khXXaQ",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -864,
+        0
+      ],
+      "id": "5781fb92-984a-43ca-96ed-be5bb4d28666",
+      "name": "OnJobPost",
+      "webhookId": "7e8fd799-19fb-4bf9-ad7f-edad6f2775fd"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a job posting parser. Given raw text from a job/internship posting, extract the following fields and return ONLY valid JSON (no markdown, no explanation):\n\n{\n  \"receiver_email\": string,\n  \"recommended_subject\": string,\n  \"role\": string,\n  \"is_intern\": boolean,\n  \"is_paid\": boolean,\n  \"intern_duration\": string,\n  \"location\": string,\n  \"valid_jobpost\": boolean,\n  \"email_body\": string\n}\n\nGeneral rules:\n- Always respond with raw JSON only. Do not wrap it in markdown code fences or add any explanatory text before or after it.\n- If there is mention of a subject line in the job post explicitly with my name, use my name which is \"Siddhartha Shakya\".\n- Never use placeholder text like \"[Your Name]\" — if you don't have the applicant's name, omit that part of the subject line entirely.\n- Infer is_intern from words like \"intern\", \"trainee\", \"graduate program\", fixed short duration, etc.\n- Set is_paid to true only if the posting explicitly mentions salary, stipend, compensation, or paid.\n- If the posting does not mention pay at all, or explicitly says unpaid/volunteer, set is_paid to false.\n- Keep \"role\" exactly as titled in the post, minus generic prefixes like \"We're Hiring\".\n- Location should be the on-site/work location, not the company HQ if different. If location isn't mentioned, set location to \"unspecified\".\n- If duration isn't mentioned, set intern_duration to \"unspecified\".\n- Output must strictly match the required JSON schema exactly, with no fields omitted — even when valid_jobpost is false, still populate every field using the fallback values below.\n\nemail_body rules:\n- Write ONE short paragraph (2-4 sentences) to open the application email, in first person, addressed generically (no \"Dear...\" greeting, that's handled separately).\n- Tailor it to the role type:\n  - If is_intern is true AND is_paid is false: mention you're available for an unpaid/for-experience internship and, if intern_duration is known, that you can commit to that duration.\n  - If is_intern is true AND is_paid is true: mention interest in the paid internship and duration if known, without implying you'd work for free.\n  - If is_intern is false: treat it as a full-time/permanent role — do not mention internship availability or duration at all.\n- Only mention visa/sponsorship status if it seems relevant (e.g. location is in the UAE); otherwise omit it.\n- Do not invent specifics about the company beyond what's implied by the role and location.\n- Keep it factual and not overly enthusiastic; state Computer Science background and quick-learning/attention-to-detail strengths generically as before.\n\nValidity rules (determine valid_jobpost):\n- receiver_email is REQUIRED. If no email address is found anywhere in the text, set receiver_email to \"unknown\" AND set valid_jobpost to false.\n- role is REQUIRED. If no identifiable job title/role can be extracted, set role to \"unknown\" AND set valid_jobpost to false.\n- The input must plausibly be a real job/internship posting (i.e., it describes a role, responsibilities, requirements, or how to apply). If the text is unrelated content, spam, too short/garbled to parse, or clearly not a job posting, set valid_jobpost to false and fill fields with best-effort or fallback values (\"unknown\"/\"unspecified\" as appropriate).\n- recommended_subject should still be generated even when other fields are missing, using whatever information is available (e.g., \"Application for [role]\" or a generic fallback like \"Job Application\" if role is also unknown). A missing/generic subject line alone should NOT be the sole reason to set valid_jobpost to false — it's a symptom of missing role/email, not a separate failure condition.\n- valid_jobpost should be true only when BOTH receiver_email and role were successfully extracted (not \"unknown\") AND the text genuinely reads as a job/internship posting.\n\nExample output (valid):\n{\n\"receiver_email\":\"jobs@example.com\",\n\"recommended_subject\":\"Application for Marketing Intern\",\n\"role\":\"Marketing Intern\",\n\"is_intern\":true,\n\"is_paid\":false,\n\"intern_duration\":\"unspecified\",\n\"location\":\"Dubai, UAE\",\n\"valid_jobpost\":true,\n\"email_body\":\"I'm interested in your Marketing Intern position in Dubai, UAE. I'm a Computer Science graduate with strong technical skills, attention to detail, and proven ability to learn quickly. I also hold a valid UAE visa/sponsorship and am available for the internship.\"\n}\n\nExample output (invalid — missing email):\n{\n\"receiver_email\":\"unknown\",\n\"recommended_subject\":\"Application for Marketing Intern\",\n\"role\":\"Marketing Intern\",\n\"is_intern\":true,\n\"is_paid\":false,\n\"intern_duration\":\"unspecified\",\n\"location\":\"unspecified\",\n\"valid_jobpost\":false,\n\"email_body\":\"unspecified\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -656,
+        0
+      ],
+      "id": "288be4cf-8c36-4052-ae6d-2e99a21a05ac",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "32461791-3683-46eb-9792-b1ceb7dad81d",
+              "leftValue": "={{ $json.output.valid_jobpost }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -304,
+        0
+      ],
+      "id": "7cec9b83-ba27-44b9-96b6-ecb639bae2f7",
+      "name": "ValidJobPost"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"receiver_email\": { \"type\": \"string\" },\n    \"recommended_subject\": { \"type\": \"string\" },\n    \"role\": { \"type\": \"string\" },\n    \"is_intern\": { \"type\": \"boolean\" },\n    \"is_paid\": { \"type\": \"boolean\" },\n    \"intern_duration\": { \"type\": \"string\" },\n    \"location\": { \"type\": \"string\" },\n    \"valid_jobpost\": { \"type\": \"boolean\" },\n    \"email_body\": { \"type\": \"string\" }\n  },\n  \"required\": [\"receiver_email\", \"recommended_subject\", \"role\", \"is_intern\", \"is_paid\", \"intern_duration\", \"location\", \"valid_jobpost\", \"email_body\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -448,
+        208
+      ],
+      "id": "38b86bb6-165a-4a4d-a9eb-9ce6a2a2ef71",
+      "name": "ConvertToJSON"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "siddhuushakyaa@gmail.com",
+        "subject": "=Approve application: {{ $('AI Agent').item.json.output.role }}",
+        "message": "=A job post was parsed. Review before it gets sent:\n\nRole: {{ $('AI Agent').item.json.output.role }}\nLocation: {{ $('AI Agent').item.json.output.location }}\nTo: {{ $('AI Agent').item.json.output.receiver_email }}\nSubject line: {{ $('AI Agent').item.json.output.recommended_subject }}\nIntern: {{ $('AI Agent').item.json.output.is_intern }} | Paid: {{ $('AI Agent').item.json.output.is_paid }} | Duration: {{ $('AI Agent').item.json.output.intern_duration }}\n\nDrafted opening paragraph:\n{{ $('AI Agent').item.json.output.email_body }}\n\nApprove to send this application with your CV attached.",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -112
+      ],
+      "id": "23a3654f-da85-463b-8f95-1813d179c044",
+      "name": "RequestApproval",
+      "webhookId": "d4f2a891-6e3b-4c7a-9f1d-2b5e8a3c9f61",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "zFfEV2dkgbu68yiS",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7c9e4a2f-3d1b-4e8a-b6c5-9f2d8e1a4b73",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        80,
+        -112
+      ],
+      "id": "368198b2-3cbe-444f-988a-a211a8ebd3d6",
+      "name": "ApprovalCheck"
+    },
+    {
+      "parameters": {
+        "sendTo": "siddhuushakyaa@gmail.com",
+        "subject": "=Skipped (declined): {{ $('AI Agent').item.json.output.role }}",
+        "emailType": "text",
+        "message": "=You declined to send this application:\n\nRole: {{ $('AI Agent').item.json.output.role }}\nTo: {{ $('AI Agent').item.json.output.receiver_email }}\n\nNo email was sent.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        288,
+        -16
+      ],
+      "id": "ce594312-0d6b-4c0e-96fc-6d8f048294cc",
+      "name": "LogRejection",
+      "webhookId": "3a7f9c2e-8b4d-4e1a-9f6c-2d5b8a1e7c39",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "zFfEV2dkgbu68yiS",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('AI Agent').item.json.output.receiver_email }}",
+        "subject": "={{ $('AI Agent').item.json.output.recommended_subject }}",
+        "emailType": "text",
+        "message": "=Dear Hiring Team,\n\n{{ $('AI Agent').item.json.output.email_body }}\n\nMy updated CV is attached and ready for you to review.\n\nBest Regards,\nSiddhartha Shakya\nInternational City, Dubai\n+971 55 183 0660\nhttps://www.linkedin.com/in/sidShkya",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        -208
+      ],
+      "id": "7c1762c1-275c-44f4-a13b-4a3ed852131f",
+      "name": "SendMyApplication",
+      "webhookId": "cfa33950-b60d-47c0-a72c-5168d3b55825",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "zFfEV2dkgbu68yiS",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "siddhuushakyaa@gmail.com",
+        "subject": "=Something Went Wrong!",
+        "emailType": "text",
+        "message": "=The Agent Output was:\n\nreceiver_email: {{ $json.output.receiver_email }}\nrecommended_subject: {{ $json.output.recommended_subject }}\nrole: {{ $json.output.role }}\nis_intern: {{ $json.output.is_intern }}\nis_paid: {{ $json.output.is_paid }}\nlocation: {{ $json.output.location }}\nvalid_jobpost: {{ $json.output.valid_jobpost }}\nintern_duration: {{ $json.output.intern_duration }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        112
+      ],
+      "id": "f99c3643-c58e-41f6-a90f-6c17c6b4e1d6",
+      "name": "FailedMessage",
+      "webhookId": "2d31a581-cfa7-430c-8c18-97d24b07f490",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "zFfEV2dkgbu68yiS",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GeminiChatModel": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetMyCV": {
+      "main": [
+        [
+          {
+            "node": "SendMyApplication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OnJobPost": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "ValidJobPost",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ValidJobPost": {
+      "main": [
+        [
+          {
+            "node": "RequestApproval",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "FailedMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RequestApproval": {
+      "main": [
+        [
+          {
+            "node": "ApprovalCheck",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ApprovalCheck": {
+      "main": [
+        [
+          {
+            "node": "GetMyCV",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LogRejection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ConvertToJSON": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "09dfe7e3-c7a8-41db-b98b-74bd936db1a9",
+  "meta": {
+    "instanceId": "b3a5d36e46d106cefc0abb79516db39479412e1aa797c78385ab1f74dffcbe3e"
+  },
+  "nodeGroups": [],
+  "id": "SXgdx4eYCoi1Auwo",
+  "tags": []
+}
