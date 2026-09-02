@@ -5,15 +5,22 @@ Meet Nathan.  🙋 Nathan works as an Analytics Manager at ABCorp. His job is to
 Some things that Nathan does are repetitive and mind-numbing. He wants to automate some of these tasks so that he doesn't burn out. As an Automation Expert, you are meeting with Nathan today to help him understand how he can offload some of his responsibilities to n8n.
 
 ```
-You 👩‍🔧: Nice to meet you, Nathan. Glad to be doing this. What's a repetitive task that's error-prone and that you'd like to get off your plate first?
+You 👩‍🔧: Nice to meet you, Nathan. Glad to be doing this. What's a repetitive task that's error-prone 
+and that you'd like to get off your plate first?
 ```
 
 ```text
 Nathan 🙋: Thanks for coming in. The most annoying one's gotta be the weekly sales reporting.
 
-I have to collect sales data from our legacy data warehouse, which manages data from the main business processes of an organization, such as sales or production. Now, each sales order can have the status Processing or Booked. I have to calculate the sum of all the Booked orders and announce them in the company Discord every Monday. Then I have to create a table of all the Processing sales so that the Sales Managers can review them and check if they need to follow up with customers.
+I have to collect sales data from our legacy data warehouse, which manages data from the main business 
+processes of an organization, such as sales or production. Now, each sales order can have the status 
+Processing or Booked. I have to calculate the sum of all the Booked orders and announce them in the 
+company Discord every Monday. Then I have to create a table of all the Processing sales so that the 
+Sales Managers can review them and check if they need to follow up with customers.
 
-This manual work is tough and requires high attention to detail to make sure that all the numbers are right. Inevitably, I lose my focus and mistype a number or I don't get it done on time. I've been criticized once by my manager for miscalculating the data.
+This manual work is tough and requires high attention to detail to make sure that all the numbers 
+are right. Inevitably, I lose my focus and mistype a number or I don't get it done on time. I've 
+been criticized once by my manager for miscalculating the data.
 ```
 
 ```text
@@ -21,11 +28,13 @@ You 👩‍🔧: Oh no. Doesn't the data warehouse have a way to export the data
 ```
 
 ```text
-Nathan 🙋: The data warehouse was written in-house ages ago. It doesn't have a CSV export but they recently added a couple of API endpoints that expose this data, if that helps.
+Nathan 🙋: The data warehouse was written in-house ages ago. It doesn't have a CSV export but they
+recently added a couple of API endpoints that expose this data, if that helps.
 ```
 
 ```text
-You 👩‍🔧: Perfect. That's a good start. If you have a generic API, we can add some custom code and a couple of services to make an automated workflow. This gig has n8n written all over it. Let's get started.
+You 👩‍🔧: Perfect. That's a good start. If you have a generic API, we can add some custom code and 
+a couple of services to make an automated workflow. This gig has n8n written all over it. Let's get started.
 ```
 
 # Designing the workflow
@@ -133,7 +142,9 @@ This is the data from ABCorp's data warehouse that Nathan needs to work with. Th
 ### What's next?
 
 ```text
-Nathan: This is great. You already automated an important part of my job with only one node. Now instead of manually accessing the data every time I need it, I can use the HTTP Request Node to automatically get the information.
+Nathan: This is great. You already automated an important part of my job with only one node. 
+Now instead of manually accessing the data every time I need it, I can use the HTTP Request 
+Node to automatically get the information.
 ```
 
 ```text
@@ -223,7 +234,9 @@ All 30 data records will now appear in the orders Data Table. You can verify thi
 ### What's next?
 
 ```text
-Nathan: Wow, this automation is already so useful. And I didn't even need to set up an external account. It's all right here in n8n. But this inserts all collected data from the HTTP Request node into the Data Table. Remember that I actually need to insert only processing orders in the table and calculate the price of booked orders?
+Nathan: Wow, this automation is already so useful. And I didn't even need to set up an external account. 
+It's all right here in n8n. But this inserts all collected data from the HTTP Request node into the Data Table. 
+Remember that I actually need to insert only processing orders in the table and calculate the price of booked orders?
 ```
 
 ```text
@@ -301,11 +314,17 @@ Review the data in your Data Table to be sure your workflow only added the corre
 ### What's next?
 
 ```text
-Nathan: This If node is so useful for filtering data! Now I have all the information about processing orders. I actually only need the employeeName and orderID, but I guess I can keep all the other fields just in case.
+Nathan: This If node is so useful for filtering data! Now I have all the information about processing 
+orders. I actually only need the employeeName and orderID, but I guess I can keep all the other fields 
+just in case.
 ```
 
 ```text
-You: Actually, I wouldn't recommend doing that. Inserting more data requires more computational power, the data transfer is slower and takes longer, and takes up more storage resources in your table. In this particular case, 14 records with 5 fields might not seem like it'd make a significant difference, but if your business grows to thousands of records and dozens of fields, things add up and even one extra column can affect performance.
+You: Actually, I wouldn't recommend doing that. Inserting more data requires more computational power, 
+the data transfer is slower and takes longer, and takes up more storage resources in your table. 
+In this particular case, 14 records with 5 fields might not seem like it'd make a significant 
+difference, but if your business grows to thousands of records and dozens of fields, things add up 
+and even one extra column can affect performance.
 ```
 
 ```text
@@ -374,7 +393,8 @@ Next, insert these filtered values into a new Data Table:
 ### What's next?
 
 ```text
-Nathan: You've already automated half of my work! Now I still need to calculate the booked orders for my colleagues. Can we automate that as well?
+Nathan: You've already automated half of my work! Now I still need to calculate the booked orders 
+for my colleagues. Can we automate that as well?
 ```
 
 ```text
@@ -470,7 +490,8 @@ Now select Execute step and you should see the following results:
 ### What's next?
 
 ```text
-Nathan: Wow, the Code node is powerful! This means that if I have some basic JavaScript skills I can power up my workflows.
+Nathan: Wow, the Code node is powerful! This means that if I have some basic JavaScript skills 
+I can power up my workflows.
 ```
 
 ```text
@@ -537,11 +558,13 @@ Your message should also appear in the #n8n-quickstart channel on the n8n Discor
 ### What's next?
 
 ```text
-Nathan: Incredible, you've saved me hours of tedious work already! Now I can execute this workflow when I need it. I just need to remember to run it every Monday morning at 9 AM.
+Nathan: Incredible, you've saved me hours of tedious work already! Now I can execute this 
+workflow when I need it. I just need to remember to run it every Monday morning at 9 AM.
 ```
 
 ```text
-You: Don't worry about that, you can actually schedule the workflow to run on a specific day, time, or interval. I'll set this up in the next unit.
+You: Don't worry about that, you can actually schedule the workflow to run on a specific 
+day, time, or interval. I'll set this up in the next unit.
 ```
 
 # 7. Scheduling the workflow
@@ -584,7 +607,10 @@ Now connect the Schedule Trigger node to the GetOrdersFromWarehouse HTTP Request
 ### What's next?
 
 ```text
-You: That was it for the workflow! I've added and configured all necessary nodes. Now you can test anytime using the Manual Trigger, and every Monday morning at 9 AM the Schedule Trigger will kick things off automatically -- getting, filtering, calculating, and transferring the sales data.
+You: That was it for the workflow! I've added and configured all necessary nodes. 
+Now you can test anytime using the Manual Trigger, and every Monday morning at 9 AM 
+the Schedule Trigger will kick things off automatically -- getting, filtering, 
+calculating, and transferring the sales data.
 ```
 
 ```text
@@ -592,7 +618,8 @@ Nathan: This is just what I needed! So it will run automatically every Monday mo
 ```
 
 ```text
-You: Not so fast. To do that, you need to publish your workflow. I'll do this in the next unit and show you how to interpret the execution log.
+You: Not so fast. To do that, you need to publish your workflow. 
+I'll do this in the next unit and show you how to interpret the execution log.
 ```
 
 # 8. Publishing and examining the workflow
@@ -650,7 +677,9 @@ In the Workflow Settings window you can configure the following settings:
 ### What's next?
 
 ```text
-You: That was it! Now you have a 8-node workflow that will run automatically every Monday morning. You don't have to worry about remembering to wrangle the data. Instead, you can start your week with more meaningful or exciting work.
+You: That was it! Now you have a 8-node workflow that will run automatically every 
+Monday morning. You don't have to worry about remembering to wrangle the data. 
+Instead, you can start your week with more meaningful or exciting work.
 ```
 
 ```text
@@ -658,5 +687,6 @@ Nathan: This workflow is incredibly helpful, thank you! Now, what's next for you
 ```
 
 ```text
-You: I'd like to build more workflows, share them with others, and use some workflows built by other people.
+You: I'd like to build more workflows, share them with others, and use some 
+workflows built by other people.
 ```
