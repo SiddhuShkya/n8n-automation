@@ -1,12 +1,12 @@
 # Job Hunt Automation
 
-An n8n-powered AI agent that watches for job/internship postings, parses them with Gemini, drafts a tailored application email, waits for my approval, and sends it off with my CV attached — all triggered from a chat input.
+An n8n-powered AI agent that watches for job/internship postings, parses them with Gemini, drafts a tailored application email, waits for my approval, and sends it off with my CV attached — all triggered from a chat input or Telegram message.
 
 ![Automation Screenshot](./screenshot.png)
 
 ## What it does
 
-1. **Receives a job posting** (pasted as raw text via a chat trigger)
+1. **Receives a job posting** (pasted as raw text via n8n Chat trigger or sent via Telegram message to a bot)
 2. **Parses it with an AI Agent** (Gemini) into structured fields: contact email, role, location, whether it's an internship, whether it's paid, duration, and a tailored opening paragraph for the application email
 3. **Validates the posting** — rejects anything that doesn't look like a real job/internship post, or is missing a contact email or role
 4. **Requests my approval by email** before anything is sent, showing exactly what would go out and to whom
@@ -16,14 +16,16 @@ An n8n-powered AI agent that watches for job/internship postings, parses them wi
 
 ## Why the approval step exists
 
-An earlier version of this workflow sent applications fully autonomously based on whatever the AI Agent extracted from the input text. Since that input is untrusted (it's whatever gets pasted into the chat), there was no safeguard against a malformed or adversarial "job posting" causing the agent to misdirect where my CV and personal information went. Adding a human-in-the-loop approval step before any email is actually sent closes that gap — nothing goes out without me reviewing the extracted fields and drafted message first.
+An earlier version of this workflow sent applications fully autonomously based on whatever the AI Agent extracted from the input text. Since that input is untrusted (it's whatever gets pasted into the chat or sent via Telegram), there was no safeguard against a malformed or adversarial "job posting" causing the agent to misdirect where my CV and personal information went. Adding a human-in-the-loop approval step before any email is actually sent closes that gap — nothing goes out without me reviewing the extracted fields and drafted message first.
 
 ## Workflow structure
 
 | Node | Purpose |
 |---|---|
-| `OnJobPost` | Chat trigger — entry point for pasting in a job posting |
-| `AI Agent` (+ `GeminiChatModel`, `ConvertToJSON`) | Parses the posting into structured JSON via Gemini, following a strict schema and validity rules defined in the system prompt |
+| `OnJobPost` | Chat trigger — entry point for pasting in a job posting via n8n chat interface |
+| `TgTrigger` | Telegram trigger — entry point for receiving job postings via Telegram messages |
+| `Edit Fields` | Standardizes incoming Telegram message payload (`message.text`) for the AI Agent |
+| `AI Agent` (+ `GeminiChatModel`, `ConvertToJSON`) | Parses the posting into structured JSON via Gemini (handling input from either Chat or Telegram), following a strict schema and validity rules defined in the system prompt |
 | `ValidJobPost` | Branches based on whether the posting was successfully parsed and looks like a real job post |
 | `RequestApproval` | Sends a "Send and Wait" approval email showing the extracted fields and drafted email body, with Approve/Decline buttons |
 | `ApprovalCheck` | Branches based on the approval response |
@@ -39,12 +41,13 @@ An earlier version of this workflow sent applications fully autonomously based o
 - **Credentials configured in n8n:**
   - Gmail OAuth2 (used for sending the application, requesting approval, and logging outcomes)
   - Google Gemini (PaLM) API — used by the AI Agent for parsing
-- Node/credential IDs in the exported workflow JSON are specific to my n8n instance — you'll need to reconnect your own Gmail and Gemini credentials after importing.
+  - Telegram Trigger API — used for receiving job posts sent via Telegram bot
+- Node/credential IDs in the exported workflow JSON are specific to my n8n instance — you'll need to reconnect your own Gmail, Gemini, and Telegram credentials after importing.
 
 ## Setup
 
-1. Import `Job Hunt Automation V2.json` into your n8n instance (Workflows → Import from File)
-2. Reconnect the Gmail OAuth2 and Google Gemini credentials to your own accounts
+1. Import `Job Hunt Automation.json` into your n8n instance (Workflows → Import from File)
+2. Reconnect the Gmail OAuth2, Google Gemini, and Telegram Trigger credentials to your own accounts
 3. Update the hardcoded values to your own:
    - `GetMyCV`'s URL (currently points to my CV on GitHub)
    - Email addresses in `RequestApproval`, `LogRejection`, and `FailedMessage` (currently my own inbox)
@@ -54,7 +57,11 @@ An earlier version of this workflow sent applications fully autonomously based o
 
 ## Usage
 
-Open the chat trigger in n8n and paste in the raw text of a job or internship posting. The AI Agent parses it, and if it looks valid, you'll get an approval email within a few seconds. Approve to send the application, or decline to skip it.
+You can trigger the workflow in two ways:
+1. **Via Chat:** Open the chat trigger in n8n and paste in the raw text of a job or internship posting.
+2. **Via Telegram:** Send a message containing the raw text of a job or internship posting to your configured Telegram bot.
+
+In both cases, the AI Agent parses the input, and if it looks valid, you'll get an approval email within a few seconds. Approve to send the application, or decline to skip it.
 
 ## Known limitations / next steps
 
