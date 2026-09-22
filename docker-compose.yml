@@ -6,9 +6,9 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=${N8N_HOST}
+      - N8N_HOST=n8n.sidshkya.com
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://${N8N_HOST}/
+      - WEBHOOK_URL=https://n8n.sidshkya.com/
       - N8N_PORT=5678
       - N8N_LICENSE_ACTIVATION_KEY=${N8N_LICENSE_ACTIVATION_KEY}
       - N8N_PROXY_HOPS=1
@@ -33,18 +33,15 @@ services:
       - 8.8.8.8
       - 1.1.1.1
 
-  ngrok:
-    image: ngrok/ngrok:latest
+  cloudflared:
+    image: cloudflare/cloudflared:latest
     container_name: n8n-tunnel
     restart: unless-stopped
     depends_on:
       - n8n
-    environment:
-      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
-    command:
-      - "http"
-      - "--url=${NGROK_DOMAIN}"
-      - "n8n:5678"
+    command: tunnel --config /home/nonroot/.cloudflared/config.yml run
+    volumes:
+      - ./cloudflared:/home/nonroot/.cloudflared:ro
 
 volumes:
   n8n_data:
